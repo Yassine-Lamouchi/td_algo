@@ -9,8 +9,6 @@
 ```
 ├── ex2.py          # Exercice 2 : Problème de transport (Recherche Tabou)
 ├── ex3.py          # Exercice 3 : TSP 8 villes (Recuit Simulé + Tabou)
-├── optimisation.md # Notes de cours (recuit simulé, tabou, etc.)
-├── r_sum_et_exemples_d_applications.md  # Résumé et exemples
 └── README.md       # Ce fichier
 ```
 
