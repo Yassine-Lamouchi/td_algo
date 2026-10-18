@@ -1,15 +1,29 @@
-# TP Optimisation - LSI3 2.1
+# Travaux Dirigés & Rendu - Optimisation
 
-**Yassine Lamouchi** - Groupe LSI3 2.1
+**Yassine Lamouchi** — Groupe LSI3 2.1
 
-## Fichiers
+---
 
-- `ex2.py` : Exercice 2 (problème de transport + recherche tabou)
-- `ex3.py` : Exercice 3 (TSP 8 villes + recuit simulé et tabou)
+## Structure des fichiers
 
-## Exercice 2
+```
+├── ex2.py          # Exercice 2 : Problème de transport (Recherche Tabou)
+├── ex3.py          # Exercice 3 : TSP 8 villes (Recuit Simulé + Tabou)
+├── optimisation.md # Notes de cours (recuit simulé, tabou, etc.)
+├── r_sum_et_exemples_d_applications.md  # Résumé et exemples
+└── README.md       # Ce fichier
+```
 
-Problème de transport avec 2 dépôts et 3 magasins.
+---
+
+## Exercice 2 : Problème de transport
+
+### Enoncé
+
+Une entreprise dispose de 2 dépôts (D1, D2) contenant respectivement 8 et 9 containers.
+3 magasins (M1, M2, M3) commandent respectivement 4, 5 et 8 containers.
+
+**Coûts de transport :**
 
 |      | M1 | M2 | M3 | Capacité |
 |------|----|----|----|----------|
@@ -17,21 +31,52 @@ Problème de transport avec 2 dépôts et 3 magasins.
 | D2   | 6  | 7  | 2  | 9        |
 | Dem. | 4  | 5  | 8  |          |
 
-J'ai utilisé la recherche tabou avec des mouvements 2×2 (déplacer 1 conteneur d'une colonne à une autre).  
-Solution trouvée : `[[3,5,0],[1,0,8]]` avec coût **52**.
+### Méthode
 
-## Exercice 3
+- **Recherche Tabou** avec solution initiale gloutonne (remplissage par coût croissant)
+- Voisinage par mouvement 2×2 (déplacement d'1 conteneur entre colonnes)
+- Liste tabou de taille 3, 50 itérations max
 
-TSP avec 8 villes. Les distances manquantes (les `-` du tableau) sont mises à 999.
+### Résultat
 
-**Recuit simulé** : 5 paliers de température (T0 = 100, division par 2 à chaque palier), 50 itérations par palier.
+```
+Solution : D1 -> M1=3, M2=5, M3=0
+           D2 -> M1=1, M2=0, M3=8
+Coût total : 52
+```
 
-**Tabou** : 100 itérations, liste tabou de taille 5, voisinage par échange de deux villes.
+---
 
-Les deux méthodes trouvent des solutions avec un coût entre **86 et 95**.
+## Exercice 3 : Voyageur de commerce (TSP - 8 villes)
 
-## Lancer
+### Enoncé
+
+Problème du voyageur de commerce avec 8 villes. Les distances manquantes (`-` dans le tableau) sont considérées comme très grandes (999).
+
+### Question 1 : Recherche Tabou
+
+- Solution initiale : 1-2-3-4-5-6-7-8-1 (comme demandé dans l'énoncé)
+- Voisinage par échange de 2 villes
+- Liste tabou de taille 5, 100 itérations
+
+### Question 2 : Recuit Simulé
+
+- 5 paliers de température (T0 = 100)
+- Variation empirique de T : refroidissement géométrique (α = 0.5)
+- 50 itérations par palier
+- Acceptation probabiliste : p = exp(-Δf / T)
+
+### Résultats typiques
+
+Les deux méthodes convergent vers un coût autour de **98**.
+
+---
+
+## Exécution
 
 ```bash
 python ex2.py
 python ex3.py
+```
+
+> **Note :** Le recuit simulé est stochastique, les résultats peuvent varier légèrement à chaque exécution.
